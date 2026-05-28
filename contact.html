@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — Grupo Franklin</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .contact-section {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 80px 40px;
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 72px;
+      align-items: start;
+    }
+
+    .contact-info h2 {
+      font-size: 22px;
+      font-weight: 300;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+
+    .contact-info p {
+      color: var(--text-muted);
+      font-size: 14px;
+      line-height: 1.75;
+      margin-bottom: 36px;
+    }
+
+    .contact-detail {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+    }
+
+    .contact-detail::before {
+      content: '';
+      width: 7px;
+      height: 7px;
+      background: var(--gold);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .contact-detail a {
+      color: var(--text);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .contact-detail a:hover { color: var(--gold); }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 12px 16px;
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus { border-color: var(--gold); }
+
+    .contact-form input::placeholder,
+    .contact-form textarea::placeholder { color: var(--text-muted); }
+
+    .contact-form textarea {
+      resize: vertical;
+      min-height: 130px;
+    }
+
+    .contact-form button {
+      background: var(--gold);
+      color: var(--bg-secondary);
+      border: none;
+      border-radius: 3px;
+      padding: 13px;
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+
+    .contact-form button:hover { opacity: 0.85; }
+    .contact-form button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .form-message {
+      display: none;
+      font-size: 13px;
+      padding: 12px 16px;
+      border-radius: 3px;
+      line-height: 1.6;
+    }
+
+    .form-message.success {
+      background: rgba(184, 150, 46, 0.08);
+      border: 1px solid rgba(184, 150, 46, 0.35);
+      color: var(--gold);
+    }
+
+    .form-message.error {
+      background: rgba(200, 60, 60, 0.08);
+      border: 1px solid rgba(200, 60, 60, 0.35);
+      color: #e06060;
+    }
+
+    @media (max-width: 640px) {
+      .contact-section {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        padding: 48px 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="index.html">
+      <img src="Resources/Grupo%20Franklin%20Logo%20White%20no%20Background.png" alt="Grupo Franklin">
+    </a>
+    <button class="nav-toggle" aria-label="Toggle menu" onclick="toggleNav()">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li class="investors-link"><a href="investors.html">Investors</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <div class="contact-section">
+
+      <div class="contact-info">
+        <h2>Get in Touch</h2>
+        <p>We welcome inquiries from prospective partners, investors, and other interested parties.</p>
+        <div class="contact-detail">
+          <a href="mailto:contact@grupofranklin.com">contact@grupofranklin.com</a>
+        </div>
+      </div>
+
+      <form class="contact-form" id="contact-form">
+        <input type="hidden" name="access_key" value="3ed9aad1-dbc7-4218-a62b-e4fcd3dec005">
+        <input type="hidden" name="subject" value="New message from grupofranklin.com">
+        <input type="hidden" name="redirect" value="false">
+        <input type="text"  name="name"    placeholder="Your name"          required>
+        <input type="email" name="email"   placeholder="Your email address" required>
+        <textarea           name="message" placeholder="Your message"       required></textarea>
+        <button type="submit" id="submit-btn">Send Message</button>
+        <div class="form-message" id="form-message"></div>
+      </form>
+
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Grupo Franklin &middot; All rights reserved</p>
+  </footer>
+
+  <script>
+    function toggleNav() {
+      document.getElementById('nav-links').classList.toggle('open');
+    }
+
+    document.getElementById('contact-form').addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const btn = document.getElementById('submit-btn');
+      const msg = document.getElementById('form-message');
+
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+      msg.style.display = 'none';
+      msg.className = 'form-message';
+
+      try {
+        const res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify(Object.fromEntries(new FormData(this)))
+        });
+        const data = await res.json();
+
+        if (data.success) {
+          msg.className = 'form-message success';
+          msg.textContent = 'Thank you for your message. We will be in touch shortly.';
+          this.reset();
+        } else {
+          throw new Error(data.message || 'Submission failed');
+        }
+      } catch {
+        msg.className = 'form-message error';
+        msg.textContent = 'Something went wrong. Please email us directly at contact@grupofranklin.com';
+      } finally {
+        msg.style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = 'Send Message';
+      }
+    });
+  </script>
+</body>
+</html>
