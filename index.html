@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grupo Franklin</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .hero {
+      min-height: calc(100vh - 125px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 48px 24px;
+      gap: 20px;
+    }
+
+    .hero img {
+      width: 130px;
+      height: 130px;
+      object-fit: contain;
+    }
+
+    .hero h1 {
+      font-size: 32px;
+      font-weight: 300;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-top: 12px;
+    }
+
+    .hero p {
+      font-size: 11px;
+      letter-spacing: 3.5px;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="index.html">
+      <img src="Resources/Grupo%20Franklin%20Logo%20White%20no%20Background.png" alt="Grupo Franklin">
+    </a>
+    <button class="nav-toggle" aria-label="Toggle menu" onclick="toggleNav()">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li class="investors-link"><a href="investors.html">Investors</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <img src="Resources/logo_vertical_axis_rotation.gif" alt="Grupo Franklin">
+      <h1>Grupo Franklin</h1>
+      <p>Private Investment Firm</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Grupo Franklin &middot; All rights reserved</p>
+  </footer>
+
+  <script>
+    function toggleNav() {
+      document.getElementById('nav-links').classList.toggle('open');
+    }
+  </script>
+</body>
+</html>
