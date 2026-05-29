@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Grupo Franklin — Private Investment Firm.">
-  <link rel="icon" href="data:,">
+  <link rel="icon" href="Resources/Grupo%20Franklin%20Logo%20White%20no%20Background.png">
   <title>Grupo Franklin</title>
   <link rel="stylesheet" href="style.css">
   <style>
@@ -26,12 +26,19 @@
     }
 
     .hero h1 {
-      font-size: 32px;
+      font-size: clamp(28px, 4vw, 42px);
       font-weight: 300;
       letter-spacing: 6px;
       text-transform: uppercase;
       color: var(--text);
       margin-top: 12px;
+    }
+
+    .hero-rule {
+      width: 32px;
+      height: 1px;
+      background: var(--gold);
+      opacity: 0.45;
     }
 
     .hero p {
@@ -60,9 +67,10 @@
 
   <main>
     <section class="hero">
-      <img src="Resources/logo_vertical_axis_rotation.gif" alt="Grupo Franklin">
-      <h1>Grupo Franklin</h1>
-      <p>Private Investment Firm</p>
+      <img class="animate-in" src="Resources/logo_vertical_axis_rotation.gif" alt="Grupo Franklin">
+      <h1 class="animate-in">Grupo Franklin</h1>
+      <div class="hero-rule animate-in"></div>
+      <p class="animate-in">Private Investment Firm</p>
     </section>
   </main>
 
@@ -73,7 +81,14 @@
   <script>
     function toggleNav() {
       document.getElementById('nav-links').classList.toggle('open');
+      document.querySelector('.nav-toggle').classList.toggle('open');
     }
+    document.querySelectorAll('.nav-links a').forEach(function(link) {
+      link.addEventListener('click', function() {
+        document.getElementById('nav-links').classList.remove('open');
+        document.querySelector('.nav-toggle').classList.remove('open');
+      });
+    });
   </script>
 </body>
 </html>
